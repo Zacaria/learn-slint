@@ -41,6 +41,13 @@ The following steps are required to set up the environment for the ESP32-S3-BOX-
 
 Follow the prerequisites for
 [esp-idf-template](https://github.com/esp-rs/esp-idf-template?tab=readme-ov-file#prerequisites).
+```sh
+espup install
+# Unix
+. $HOME/export-esp.sh
+```
+> Warning
+> Make sure you source the generated export file, as shown above, in every terminal before building any application as it contains the required environment variables.
 
 ### Ubuntu/Debian
 

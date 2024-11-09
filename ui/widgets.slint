@@ -1,6 +1,96 @@
+import { Palette, StyleMetrics } from "style.slint";
 export component Page inherits Rectangle {
     background: #ffffff;
 }
 
+export component TitleBar inherits Rectangle {
+    in property <string> text <=> text-item.text;
+    width: 100%;
+    height: 32px;
+    background: Palette.background;
+    padding-bottom: StyleMetrics.padding;
+
+    text-item := Text {
+        color: white;
+        text: "Default title bar";
+        font-size: 16px;
+    }
+}
+
+export component StatusBar inherits Rectangle {
+    in property text <=> text-item.text;
+    background: Palette.alternate-background;
+    height: StyleMetrics.status-height;
+    text-item := Text {
+        color: white;
+        width: parent.width;
+        text: "Default status bar";
+        vertical-alignment: center;
+        horizontal-alignment: center;
+    }
+}
+
+export component Jauge {
+    in property <float> value: 50;
+    in property <float> min-value: 0;
+    in property <float> max-value: 100;
+    in property <string> unit: "°C";
+    in property <brush> background <=> fill.background;
+
+    out property <float> level: (Math.clamp(self.value, self.min-value, self.max-value) - self.min-value) / (self.max-value - self.min-value);
+
+    in property <length> bar-width: 30px;
+    fill := Rectangle {
+        x: 0;
+        y: parent.height - self.height;
+        width: root.bar-width;
+        height: root.height * root.level;
+        // background: background;
+    }
+
+    bar := Rectangle {
+        x: 0;
+        border-width: 2px;
+        width: root.bar-width;
+        height: parent.height;
+        border-color: Colors.grey;
+    }
+
+    value-text := Text {
+        text: "\{root.value.round()} \{root.unit}";
+        font-size: 32px;
+        x: root.bar-width + StyleMetrics.padding;
+    }
+}
+
+export component TemperatureJauge inherits Jauge {
+    value: 20;
+    min-value: -20.0;
+    max-value: 50.0;
+    unit: "°C";
+    background: #ff0000.mix(#0000ff, root.level);
+}
+
+export component HumidityJauge inherits Jauge {
+    value: 50;
+    min-width: 0;
+    max-value: 100;
+    unit: "%";
+    background: #0000ff.mix(#DDDD50, root.level);
+    y: 100px;
+}
+
 export component AppWindow inherits Window {
+    in property status-bar-text <=> status-bar.text;
+    VerticalLayout {
+        TitleBar {
+            text: "Weather station";
+        }
+
+        @children
+
+        status-bar := StatusBar {
+            text: "default status text";
+        }
+    }
 }

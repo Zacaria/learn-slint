@@ -1,4 +1,22 @@
 // This slint file contains all the UI pages of the application.
 
-import { Page } from "widgets.slint";
+import { Page, Jauge, TemperatureJauge, HumidityJauge } from "widgets.slint";
+import { HorizontalBox } from "std-widgets.slint";
 
+export component TemperaturePage inherits Page {
+    in property temperature-celsius <=> temperature-bar.value;
+    in property humidity-percent <=> humidity-bar.value;
+    HorizontalBox {
+        // height: 20px;
+        temperature-bar := TemperatureJauge { }
+
+        humidity-bar := HumidityJauge { }
+    }
+}
+
+// export component HumidityPage inherits Page {
+//     HorizontalBox {
+//         // x: (100% * 1px) / 2;
+//         HumidityJauge { }
+//     }
+// }

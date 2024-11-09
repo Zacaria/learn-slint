@@ -1,5 +1,13 @@
 /// This slint file contains the data type definitions for the UI.
 
+export struct WeatherRecord {
+    temperature-celsius: float,
+    humidity-percent: float,
+    timestamp: string,
+}
+
+
+
 /// SensorStatus is the status of a sensor.
 export enum SensorStatus {
     Ok,

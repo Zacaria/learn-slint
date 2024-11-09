@@ -1,1 +1,13 @@
 /// This slint file contains all definitions for styles used in the UI.
+
+import { Palette } from "std-widgets.slint";
+
+export global Palette {
+    out property <color> background: #be5a5a;
+    out property <color> alternate-background: #447140;
+}
+
+export global StyleMetrics {
+    out property <length> padding: 8px;
+    out property <length> status-height: 24px;
+}

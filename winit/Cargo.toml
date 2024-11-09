@@ -14,7 +14,7 @@ log = { version = "0.4", default-features = false } # Use log for logging
 slint = "1.8" # Use the slint library for the UI
 
 # Include the common package as a dependency
-slint-workshop-common = { path = "../common" }
+slint-workshop-common = { path = "../common", features = ["weather"] }
 
 [build-dependencies]
 slint-build = "1.8" # To compile slint files into Rust code at compile time
